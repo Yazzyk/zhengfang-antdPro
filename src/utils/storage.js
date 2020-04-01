@@ -3,9 +3,9 @@ export const storage = {
     localStorage.setItem(key, value);
   },
   find: (key) => {
-    localStorage.getItem(key);
+    return localStorage.getItem(key);
   },
   remove: (key) => {
     localStorage.remove(key);
-  }
-}
+  },
+};

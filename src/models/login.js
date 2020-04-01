@@ -1,23 +1,32 @@
 import { stringify } from 'querystring';
 import { history } from 'umi';
-import { fakeAccountLogin,getToken } from '@/services/login';
+import { AccountLogin, getToken } from '@/services/login';
 import { setAuthority } from '@/utils/authority';
 import { getPageQuery } from '@/utils/utils';
+import { storage } from '../utils/storage';
 
 const Model = {
   namespace: 'login',
   state: {
+    token: undefined,
     status: undefined,
+    captChaSrc: undefined,
   },
   effects: {
     *login({ payload }, { call, put }) {
-      const response = yield call(fakeAccountLogin, payload);
+      const data = {
+        username: payload.username,
+        password: payload.password,
+        captcha: payload.captcha,
+        token: localStorage.getItem('token'),
+      };
+      const response = yield call(AccountLogin, data);
       yield put({
         type: 'changeLoginStatus',
         payload: response,
       }); // Login successfully
 
-      if (response.status === 'ok') {
+      if (response.result === 'success') {
         const urlParams = new URL(window.location.href);
         const params = getPageQuery();
         let { redirect } = params;
@@ -41,11 +50,14 @@ const Model = {
       }
     },
 
-    *getToken(_, { call, put }){
+    *getToken(_, { call, put }) {
       const response = yield call(getToken);
       yield put({
         type: 'saveToken',
-        payload: response
+        payload: response,
+      });
+      yield put({
+        type: 'changeCaptChaSrc',
       });
     },
 
@@ -65,12 +77,16 @@ const Model = {
   reducers: {
     changeLoginStatus(state, { payload }) {
       setAuthority(payload.currentAuthority);
-      return { ...state, status: payload.status, type: payload.type };
+      return { ...state, status: payload.result, type: payload.result, message: payload.msg };
     },
-    saveToken(state, { payload }){
-      
-      return { ...state }
-    }
+    saveToken(state, { payload }) {
+      storage.save('token', payload.item.token);
+      return { ...state, token: payload.item.token };
+    },
+    changeCaptChaSrc(state) {
+      const time = new Date().getTime();
+      return { ...state, captChaSrc: `/api/user/captcha?path=${time}&token=${state.token}` };
+    },
   },
 };
 export default Model;

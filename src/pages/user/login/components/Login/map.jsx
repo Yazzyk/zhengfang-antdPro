@@ -1,4 +1,10 @@
-import { LockTwoTone, MailTwoTone, MobileTwoTone, UserOutlined } from '@ant-design/icons';
+import {
+  LockTwoTone,
+  MailTwoTone,
+  MobileTwoTone,
+  UserOutlined,
+  SafetyCertificateOutlined,
+} from '@ant-design/icons';
 import React from 'react';
 import styles from './index.less';
 
@@ -55,6 +61,19 @@ export default {
         message: 'Wrong mobile number format!',
       },
     ],
+  },
+  CaptCha: {
+    props: {
+      size: 'large',
+      prefix: <SafetyCertificateOutlined className={styles.prefixIcon} />,
+      placeholder: '验证码',
+      rules: [
+        {
+          required: true,
+          message: '请输入验证码!',
+        },
+      ],
+    },
   },
   Captcha: {
     props: {

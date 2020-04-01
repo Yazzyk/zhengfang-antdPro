@@ -7,7 +7,7 @@ import webpackPlugin from './plugin.config';
 const { winPath } = utils; // preview.pro.ant.design only do not use in your production ;
 // preview.pro.ant.design 专用环境变量，请不要在你的项目中使用它。
 
-const { ANT_DESIGN_PRO_ONLY_DO_NOT_USE_IN_YOUR_PRODUCTION, REACT_APP_ENV, GA_KEY } = process.env;
+const { REACT_APP_ENV, GA_KEY } = process.env;
 export default defineConfig({
   hash: true,
   antd: {},
@@ -60,25 +60,9 @@ export default defineConfig({
             },
             {
               path: '/welcome',
-              name: 'welcome',
+              name: '欢迎页',
               icon: 'smile',
               component: './Welcome',
-            },
-            {
-              path: '/admin',
-              name: 'admin',
-              icon: 'crown',
-              component: './Admin',
-              authority: ['admin'],
-              routes: [
-                {
-                  path: '/admin/sub-page',
-                  name: 'sub-page',
-                  icon: 'smile',
-                  component: './Welcome',
-                  authority: ['admin'],
-                },
-              ],
             },
             {
               name: 'list.table-list',
@@ -106,9 +90,7 @@ export default defineConfig({
     'primary-color': defaultSettings.primaryColor,
   },
   define: {
-    REACT_APP_ENV: REACT_APP_ENV || false,
-    ANT_DESIGN_PRO_ONLY_DO_NOT_USE_IN_YOUR_PRODUCTION:
-      ANT_DESIGN_PRO_ONLY_DO_NOT_USE_IN_YOUR_PRODUCTION || '', // preview.pro.ant.design only do not use in your production ; preview.pro.ant.design 专用环境变量，请不要在你的项目中使用它。
+    REACT_APP_ENV: REACT_APP_ENV || false, // preview.pro.ant.design only do not use in your production ; preview.pro.ant.design 专用环境变量，请不要在你的项目中使用它。
   },
   ignoreMomentLocale: true,
   lessLoader: {
@@ -131,8 +113,8 @@ export default defineConfig({
           const antdProPath = match[1].replace('.less', '');
           const arr = winPath(antdProPath)
             .split('/')
-            .map(a => a.replace(/([A-Z])/g, '-$1'))
-            .map(a => a.toLowerCase());
+            .map((a) => a.replace(/([A-Z])/g, '-$1'))
+            .map((a) => a.toLowerCase());
           return `antd-pro${arr.join('-')}-${localName}`.replace(/--/g, '-');
         }
 

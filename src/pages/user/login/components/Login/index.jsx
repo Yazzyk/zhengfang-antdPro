@@ -8,7 +8,7 @@ import LoginSubmit from './LoginSubmit';
 import LoginTab from './LoginTab';
 import styles from './index.less';
 
-const Login = props => {
+const Login = (props) => {
   const { className } = props;
   const [tabs, setTabs] = useState([]);
   const [active, setActive] = useState({});
@@ -18,7 +18,7 @@ const Login = props => {
   });
   const TabChildren = [];
   const otherChildren = [];
-  React.Children.forEach(props.children, child => {
+  React.Children.forEach(props.children, (child) => {
     if (!child) {
       return;
     }
@@ -33,14 +33,14 @@ const Login = props => {
     <LoginContext.Provider
       value={{
         tabUtil: {
-          addTab: id => {
+          addTab: (id) => {
             setTabs([...tabs, id]);
           },
-          removeTab: id => {
-            setTabs(tabs.filter(currentId => currentId !== id));
+          removeTab: (id) => {
+            setTabs(tabs.filter((currentId) => currentId !== id));
           },
         },
-        updateActive: activeItem => {
+        updateActive: (activeItem) => {
           if (!active) return;
 
           if (active[type]) {
@@ -56,7 +56,7 @@ const Login = props => {
       <div className={classNames(className, styles.login)}>
         <Form
           form={props.from}
-          onFinish={values => {
+          onFinish={(values) => {
             if (props.onSubmit) {
               props.onSubmit(values);
             }
@@ -68,7 +68,7 @@ const Login = props => {
                 animated={false}
                 className={styles.tabs}
                 activeKey={type}
-                onChange={activeKey => {
+                onChange={(activeKey) => {
                   setType(activeKey);
                 }}
               >
@@ -87,8 +87,8 @@ const Login = props => {
 
 Login.Tab = LoginTab;
 Login.Submit = LoginSubmit;
+Login.CaptCha = LoginItem.CaptCha;
 Login.UserName = LoginItem.UserName;
 Login.Password = LoginItem.Password;
 Login.Mobile = LoginItem.Mobile;
-Login.Captcha = LoginItem.Captcha;
 export default Login;
