@@ -7,10 +7,6 @@ export async function AccountLogin(params) {
   });
 }
 
-export async function getToken() {
-  return request('/api/user/token');
-}
-
 export async function getFakeCaptcha(mobile) {
   return request(`/api/login/captcha?mobile=${mobile}`);
 }

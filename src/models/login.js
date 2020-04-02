@@ -1,9 +1,8 @@
 import { stringify } from 'querystring';
 import { history } from 'umi';
-import { AccountLogin, getToken } from '@/services/login';
+import { AccountLogin } from '@/services/login';
 import { setAuthority } from '@/utils/authority';
 import { getPageQuery } from '@/utils/utils';
-import { storage } from '../utils/storage';
 
 const Model = {
   namespace: 'login',
@@ -50,17 +49,6 @@ const Model = {
       }
     },
 
-    *getToken(_, { call, put }) {
-      const response = yield call(getToken);
-      yield put({
-        type: 'saveToken',
-        payload: response,
-      });
-      yield put({
-        type: 'changeCaptChaSrc',
-      });
-    },
-
     logout() {
       const { redirect } = getPageQuery(); // Note: There may be security issues, please note
 
@@ -78,14 +66,6 @@ const Model = {
     changeLoginStatus(state, { payload }) {
       setAuthority(payload.currentAuthority);
       return { ...state, status: payload.result, type: payload.result, message: payload.msg };
-    },
-    saveToken(state, { payload }) {
-      storage.save('token', payload.item.token);
-      return { ...state, token: payload.item.token };
-    },
-    changeCaptChaSrc(state) {
-      const time = new Date().getTime();
-      return { ...state, captChaSrc: `/api/user/captcha?path=${time}&token=${state.token}` };
     },
   },
 };

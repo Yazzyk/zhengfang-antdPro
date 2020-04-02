@@ -1,4 +1,5 @@
 import { queryCurrent, query as queryUsers } from '@/services/user';
+import { storage } from '@/utils/storage';
 
 const UserModel = {
   namespace: 'user',
@@ -15,16 +16,19 @@ const UserModel = {
     },
 
     *fetchCurrent(_, { call, put }) {
-      const response = yield call(queryCurrent);
-      yield put({
-        type: 'saveCurrentUser',
-        payload: response,
-      });
+      const response = yield call(queryCurrent, storage.find('token'));
+      if (response.result === 'success') {
+        response.item.avatar = 'https://img.css0209.cn/img/avatar/default.jpg'
+        yield put({
+          type: 'saveCurrentUser',
+          payload: response,
+        });
+      }
     },
   },
   reducers: {
     saveCurrentUser(state, action) {
-      return { ...state, currentUser: action.payload || {} };
+      return { ...state, currentUser: action.payload.item || {} };
     },
 
     changeNotifyCount(

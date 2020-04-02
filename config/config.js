@@ -39,7 +39,7 @@ export default defineConfig({
       component: '../layouts/UserLayout',
       routes: [
         {
-          name: 'login',
+          name: '登录',
           path: '/user/login',
           component: './user/login',
         },
@@ -65,10 +65,10 @@ export default defineConfig({
               component: './Welcome',
             },
             {
-              name: 'list.table-list',
+              name: '成绩',
               icon: 'table',
-              path: '/list',
-              component: './ListTableList',
+              path: '/grade',
+              component: './grade',
             },
             {
               component: './404',

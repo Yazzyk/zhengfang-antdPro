@@ -1,4 +1,6 @@
 import { queryNotices } from '@/services/user';
+import { getToken } from '@/services/global';
+import { storage } from '../utils/storage';
 
 const GlobalModel = {
   namespace: 'global',
@@ -22,6 +24,17 @@ const GlobalModel = {
           totalCount: data.length,
           unreadCount,
         },
+      });
+    },
+
+    *getToken(_, { call, put }) {
+      const response = yield call(getToken);
+      yield put({
+        type: 'saveToken',
+        payload: response,
+      });
+      yield put({
+        type: 'changeCaptChaSrc',
       });
     },
 
@@ -78,7 +91,10 @@ const GlobalModel = {
     ) {
       return { ...state, collapsed: payload };
     },
-
+    changeCaptChaSrc(state) {
+      const time = new Date().getTime();
+      return { ...state, captChaSrc: `/api/user/captcha?path=${time}&token=${state.token}` };
+    },
     saveNotices(state, { payload }) {
       return {
         collapsed: false,
@@ -86,7 +102,10 @@ const GlobalModel = {
         notices: payload,
       };
     },
-
+    saveToken(state, { payload }) {
+      storage.save('token', payload.item.token);
+      return { ...state, token: payload.item.token };
+    },
     saveClearedNotices(
       state = {
         notices: [],

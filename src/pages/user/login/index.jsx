@@ -6,7 +6,8 @@ import styles from './style.less';
 
 const { Tab, UserName, Password, Submit, CaptCha } = LoginFrom;
 
-@connect(({ login, loading }) => ({
+@connect(({ login, global, loading }) => ({
+  global,
   userLogin: login,
   submitting: loading.effects['login/login'],
 }))
@@ -20,7 +21,7 @@ class Login extends Component {
     super(props);
     const { dispatch } = this.props;
     dispatch({
-      type: 'login/getToken',
+      type: 'global/getToken',
     });
   }
 
@@ -33,16 +34,13 @@ class Login extends Component {
   handleSubmit = (values) => {
     const type = this.state;
     const { dispatch } = this.props;
-    console.log('====================================');
-    console.log(values);
-    console.log('====================================');
     dispatch({
       type: 'login/login',
       payload: { ...values, type },
     });
   };
 
-  LoginMessage = ({ content }) => (
+  LoginMessage = (content) => (
     <Alert
       style={{
         marginBottom: 24,
@@ -54,18 +52,19 @@ class Login extends Component {
   );
 
   render() {
-    const { userLogin, submitting } = this.props;
-    const { status, type: loginType, message, captChaSrc } = userLogin;
+    const { global, userLogin, submitting } = this.props;
+    const { status, type: loginType, message } = userLogin;
+    const { captChaSrc } = global;
     const { type, autoLogin } = this.state;
 
     return (
       <div className={styles.main}>
         <LoginFrom activeKey={type} onSubmit={this.handleSubmit}>
           <Tab key="account" tab="账户密码登录">
-            {status === 'error' &&
-              loginType === 'account' &&
+            {status === 'fail' &&
+              loginType === 'fail' &&
               !submitting &&
-              this.LoginMessage(message || '账户或密码错误')}
+              this.LoginMessage(message || '奇怪的bug增加了,请联系作者QQ:917885215')}
 
             <UserName
               name="username"
