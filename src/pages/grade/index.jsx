@@ -1,41 +1,9 @@
-import {
-  Card,
-  Descriptions,
-  Statistic,
-} from 'antd';
+import { Card, Descriptions, Statistic } from 'antd';
 import { GridContent, PageHeaderWrapper, RouteContext } from '@ant-design/pro-layout';
 import React, { Component } from 'react';
 import { connect } from 'umi';
 import Statistics from './components/Statistics';
 import styles from './style.less';
-
-const fullViewColumns = [
-  {
-    title: '课程性质名称',
-    dataIndex: 'kechengxingzhimingcheng',
-    key: 'kechengxingzhimingcheng',
-  },
-  {
-    title: '未通过学分',
-    dataIndex: 'kechengxingzhimingcheng',
-    key: 'kechengxingzhimingcheng',
-  },
-  {
-    title: '获得学分',
-    dataIndex: 'huodexuefen',
-    key: 'huodexuefen',
-  },
-  {
-    title: '还需学分',
-    dataIndex: 'haixuxuefen',
-    key: 'haixuxuefen',
-  },
-  {
-    title: '学分要求',
-    dataIndex: 'xuefenyaoqiu',
-    key: 'xuefenyaoqiu',
-  },
-];
 
 @connect(({ grade, user, loading }) => ({
   grade,
@@ -45,7 +13,7 @@ const fullViewColumns = [
 class Grade extends Component {
   state = {
     operationKey: 'tab1',
-    tabActiveKey: 'detail',
+    tabActiveKey: 'statistics',
   };
 
   componentDidMount() {
@@ -56,19 +24,23 @@ class Grade extends Component {
     dispatch({
       type: 'grade/fetchGrade',
       payload: {
-        btn: 'Button1'
-      }
+        btn: 'Button1',
+      },
     });
   }
 
   extra = (failedGrade, statistics) => (
     <div className={styles.moreInfo}>
-      <Statistic title="未通过学科" value={failedGrade} />
-      <Statistic title="已获得选修学分" value={statistics === undefined ? 0 : statistics.data6[0].huodexuefen} />
+      <Statistic title="未通过学科" value={failedGrade === undefined ? 0 : failedGrade.length} />
+      <Statistic
+        title="已获得选修学分"
+        value={statistics === undefined ? 0 : statistics.data6[0].huodexuefen}
+      />
     </div>
   );
 
   onOperationTabChange = (key) => {
+    console.log(key);
     this.setState({ operationKey: key });
   };
 
@@ -90,6 +62,7 @@ class Grade extends Component {
   );
 
   render() {
+    // TODO
     const { operationKey, tabActiveKey } = this.state;
     const { grade, user, loading, failedGrade } = this.props;
     const { currentUser } = user;
@@ -98,15 +71,20 @@ class Grade extends Component {
       tab1: (
         <Statistics
           Loading={loading}
-          DataSource={statistics === undefined ? [] : statistics.data2}
-          Col = {fullViewColumns}
-          averageScorePoint = {statistics.averageScorePoint}
+          statisticsDataSource={statistics === undefined ? [] : statistics.data2}
+          averageScorePoint={statistics === undefined ? '0' : statistics.averageScorePoint}
+          sumOfGradePoints={statistics === undefined ? '0' : statistics.sumOfGradePoints}
+          totalPeople={statistics === undefined ? '0' : statistics.totalPeople}
+          creditStatistics={statistics === undefined ? '0,0,0,0' : statistics.creditStatistics}
+          electiveDataSource={statistics === undefined ? [] : statistics.data6}
+          unKnowDataSource={statistics === undefined ? [] : statistics.data7}
         />
       ),
+      tab2: <Card />,
     };
     return (
       <PageHeaderWrapper
-        title='学生信息'
+        title="学生信息"
         className={styles.pageHeader}
         content={this.description(currentUser)}
         extraContent={this.extra(failedGrade, statistics)}
@@ -114,11 +92,11 @@ class Grade extends Component {
         onTabChange={this.onTabChange}
         tabList={[
           {
-            key: 'detail',
+            key: 'statistics',
             tab: '成绩统计',
           },
           {
-            key: 'rule',
+            key: 'inquire',
             tab: '成绩查询',
           },
         ]}
