@@ -40,6 +40,10 @@ const Model = {
         });
         return;
       }
+      response.item.grade.forEach((element, index) => {
+        // eslint-disable-next-line no-param-reassign
+        element.key = index;
+      });
       yield put({
         type: 'saveGrade',
         payload: response.item.grade,

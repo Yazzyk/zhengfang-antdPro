@@ -60,9 +60,9 @@ class Grade extends Component {
 
   render() {
     const { operationKey, tabActiveKey } = this.state;
-    const { grade, user, loading, failedGrade } = this.props;
+    const { grade, user, loading } = this.props;
     const { currentUser } = user;
-    const { statistics } = grade;
+    const { statistics, failedGrade } = grade;
     const contentList = {
       statistics: (
         <Statistics

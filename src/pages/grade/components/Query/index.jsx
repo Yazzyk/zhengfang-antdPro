@@ -28,9 +28,6 @@ class Query extends Component {
 
   handleValueUpdate = (changeValue, allValue) => {
     this.setState(allValue);
-    console.log('allValue', allValue);
-    console.log('change', changeValue);
-    console.log('state', this.state);
     this.handleSubmit(allValue);
   };
 

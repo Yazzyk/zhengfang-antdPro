@@ -1,4 +1,4 @@
-import { Alert, Checkbox, Input } from 'antd';
+import { Alert, Checkbox, Input, Tooltip } from 'antd';
 import React, { Component } from 'react';
 import { connect } from 'umi';
 import LoginFrom from './components/Login';
@@ -24,6 +24,13 @@ class Login extends Component {
       type: 'global/getToken',
     });
   }
+
+  handleChangeCaptChaSrc = () => {
+    const { dispatch } = this.props;
+    dispatch({
+      type: 'global/changeCaptChaSrc',
+    });
+  };
 
   setAutoLogin = (e) => {
     this.setState({
@@ -88,7 +95,14 @@ class Login extends Component {
               ]}
             />
             <Input.Group>
-              <img className={styles.captcha} src={captChaSrc} alt="验证码" />
+              <Tooltip title="点击切换验证码" placement="left">
+                <img
+                  className={styles.captcha}
+                  onClick={this.handleChangeCaptChaSrc}
+                  src={captChaSrc}
+                  alt="验证码"
+                />
+              </Tooltip>
               <CaptCha
                 name="captcha"
                 placeholder="验证码"
