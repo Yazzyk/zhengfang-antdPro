@@ -2,6 +2,7 @@ import { Card, Descriptions, Statistic } from 'antd';
 import { GridContent, PageHeaderWrapper, RouteContext } from '@ant-design/pro-layout';
 import React, { Component } from 'react';
 import { connect } from 'umi';
+import Query from '@/pages/grade/components/Query';
 import Statistics from './components/Statistics';
 import styles from './style.less';
 
@@ -12,7 +13,7 @@ import styles from './style.less';
 }))
 class Grade extends Component {
   state = {
-    operationKey: 'tab1',
+    operationKey: 'statistics',
     tabActiveKey: 'statistics',
   };
 
@@ -39,13 +40,9 @@ class Grade extends Component {
     </div>
   );
 
-  onOperationTabChange = (key) => {
-    console.log(key);
-    this.setState({ operationKey: key });
-  };
-
   onTabChange = (tabActiveKey) => {
     this.setState({ tabActiveKey });
+    this.setState({ operationKey: tabActiveKey });
   };
 
   description = (currentUser) => (
@@ -62,13 +59,12 @@ class Grade extends Component {
   );
 
   render() {
-    // TODO
     const { operationKey, tabActiveKey } = this.state;
     const { grade, user, loading, failedGrade } = this.props;
     const { currentUser } = user;
     const { statistics } = grade;
     const contentList = {
-      tab1: (
+      statistics: (
         <Statistics
           Loading={loading}
           statisticsDataSource={statistics === undefined ? [] : statistics.data2}
@@ -80,7 +76,12 @@ class Grade extends Component {
           unKnowDataSource={statistics === undefined ? [] : statistics.data7}
         />
       ),
-      tab2: <Card />,
+      query: (
+        <Query
+          Loading={loading}
+          gradeSource={grade.gradeSource === undefined ? {} : grade.gradeSource}
+        />
+      ),
     };
     return (
       <PageHeaderWrapper
@@ -96,18 +97,14 @@ class Grade extends Component {
             tab: '成绩统计',
           },
           {
-            key: 'inquire',
+            key: 'query',
             tab: '成绩查询',
           },
         ]}
       >
         <div className={styles.main}>
           <GridContent>
-            <Card
-              className={styles.tabsCard}
-              bordered={false}
-              onTabChange={this.onOperationTabChange}
-            >
+            <Card className={styles.tabsCard} bordered={false}>
               {contentList[operationKey]}
             </Card>
           </GridContent>

@@ -1,0 +1,23 @@
+@import '~antd/lib/style/themes/default.less';
+
+.FormLine {
+  width: 100%;
+
+  > div {
+    float: left;
+    width: 25%;
+    padding: 0 10px;
+    text-align: center;
+  }
+
+  &::after {
+    clear: both;
+    content: '';
+  }
+  @media screen and (max-width: 768px) {
+    > div {
+      float: unset;
+      width: unset;
+    }
+  }
+}

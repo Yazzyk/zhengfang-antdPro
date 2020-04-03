@@ -7,7 +7,7 @@ const Model = {
   state: {
     failedGrade: undefined,
     statistics: undefined,
-    grade: undefined,
+    gradeSource: undefined,
   },
 
   effects: {
@@ -21,19 +21,19 @@ const Model = {
     *fetchGrade({ payload }, { call, put }) {
       const data = { ...payload, token: storage.find('token') };
       const response = yield call(queryGrade, data);
-      response.item.gradeStatistics.data2.forEach((element, index) => {
-        // eslint-disable-next-line no-param-reassign
-        element.key = index;
-      });
-      response.item.gradeStatistics.data6.forEach((element, index) => {
-        // eslint-disable-next-line no-param-reassign
-        element.key = index;
-      });
-      response.item.gradeStatistics.data7.forEach((element, index) => {
-        // eslint-disable-next-line no-param-reassign
-        element.key = index;
-      });
-      if (data.btn === 'Button1') {
+      if (payload.btn === 'Button1') {
+        response.item.gradeStatistics.data2.forEach((element, index) => {
+          // eslint-disable-next-line no-param-reassign
+          element.key = index;
+        });
+        response.item.gradeStatistics.data6.forEach((element, index) => {
+          // eslint-disable-next-line no-param-reassign
+          element.key = index;
+        });
+        response.item.gradeStatistics.data7.forEach((element, index) => {
+          // eslint-disable-next-line no-param-reassign
+          element.key = index;
+        });
         yield put({
           type: 'saveStatistics',
           payload: response.item.gradeStatistics,
@@ -51,7 +51,7 @@ const Model = {
       return { ...state, failedGrade: action.payload };
     },
     saveGrade(state, { payload }) {
-      return { ...state, grade: payload };
+      return { ...state, gradeSource: payload };
     },
     saveStatistics(state, { payload }) {
       return { ...state, statistics: payload };
