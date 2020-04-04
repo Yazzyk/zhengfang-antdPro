@@ -1,69 +1,127 @@
 import React from 'react';
-import { Card, Descriptions, Statistic, Table } from 'antd';
-import DescriptionsItem from 'antd/lib/descriptions/Item';
-import { ColData } from '@/pages/grade/data';
-import { gradeUtil } from '../../utils/utils';
+import {Card, Col, Row, Table} from 'antd';
+import {ColData} from '@/pages/grade/data';
+import {Chart, Coord, Geom, Label, Tooltip} from 'bizcharts';
+import OverView from '@/pages/grade/components/OverView';
+
+const getCreditsEarned = (dataArr) => {
+  const resultArr = [];
+  dataArr.forEach((item) => {
+    resultArr.push(
+      {name: item.kechengxingzhimingcheng, value: item.huodexuefen - '0'},
+    );
+  });
+  return resultArr;
+};
 
 function Statistics(props) {
-  const creditStatisticsArray = gradeUtil.getDoubleNumOfString(props.creditStatistics);
-  const { fullViewColumns, electiveColumns, unKnowColumns } = ColData;
+  const {
+    averageScorePoint, sumOfGradePoints,
+    creditStatistics, Loading, electiveDataSource, totalPeople, unKnowDataSource,
+    statisticsDataSource,
+  } = props;
+  const electiveCredits = electiveDataSource[0].huodexuefen;
+  const creditsEarned = getCreditsEarned(statisticsDataSource);
+  const electiveData = [
+    {
+      name:  `已获得学分`,
+      value: electiveCredits - '0',
+    },
+    {
+      name:  `还需学分`,
+      value: 6 - (electiveCredits - '0'),
+    },
+  ];
+  const {fullViewColumns, electiveColumns, unKnowColumns} = ColData;
   return (
-    <div>
-      <Card title="概况" loading={props.Loading}>
-        <Descriptions column={{ xxl: 5, xl: 4, lg: 3, md: 3, sm: 2, xs: 2 }}>
-          <DescriptionsItem>
-            <Statistic
-              title="平均学分绩点"
-              value={gradeUtil.getGradeScorePoint(props.averageScorePoint)}
-            />
-          </DescriptionsItem>
-          <DescriptionsItem>
-            <Statistic title="本专业人数" value={gradeUtil.getNumberOfString(props.totalPeople)} />
-          </DescriptionsItem>
-          <DescriptionsItem>
-            <Statistic
-              title="学分绩点总和"
-              value={gradeUtil.getGradeScorePoint(props.sumOfGradePoints)}
-            />
-          </DescriptionsItem>
-        </Descriptions>
-        <Descriptions column={{ xxl: 5, xl: 4, lg: 3, md: 3, sm: 2, xs: 2 }}>
-          <DescriptionsItem>
-            <Statistic title="所选学分" value={creditStatisticsArray[0]} />
-          </DescriptionsItem>
-          <DescriptionsItem>
-            <Statistic title="获得学分" value={creditStatisticsArray[1]} />
-          </DescriptionsItem>
-          <DescriptionsItem>
-            <Statistic title="重修学分" value={creditStatisticsArray[2]} />
-          </DescriptionsItem>
-          <DescriptionsItem>
-            <Statistic title="正考未通过学分" value={creditStatisticsArray[3]} />
-          </DescriptionsItem>
-        </Descriptions>
+    <>
+      <Row gutter={{xs: 8, sm: 16, md: 24}} justify='space-around'>
+        <Col flex='1 0 50%'>
+          <Card
+            loading={Loading}
+            bordered={false}
+            hoverable
+            style={{marginTop: 20}}
+          >
+            <Chart
+              forceFit
+              height={300}
+              data={electiveData}
+            >
+              <h3>选修</h3>
+              <Coord type='theta'/>
+              <Tooltip showTitle title/>
+              <Geom
+                type="intervalStack"
+                position="value"
+                color="name"
+              >
+                <Label content="name"/>
+              </Geom>
+            </Chart>
+          </Card>
+        </Col>
+        <Col flex='1 0 50%'>
+          <Card
+            loading={Loading}
+            bordered={false}
+            hoverable
+            style={{marginTop:20}}
+          >
+            <Chart
+              forceFit
+              height={300}
+              data={creditsEarned}
+            >
+              <h3>已获得学分来源</h3>
+              <Coord type='theta'/>
+              <Tooltip showTitle title/>
+              <Geom
+                type="intervalStack"
+                position="value"
+                color="name"
+              >
+                <Label content='name'/>
+              </Geom>
+            </Chart>
+          </Card>
+        </Col>
+      </Row>
+      <OverView
+        Loading={Loading}
+        averageScorePoint={averageScorePoint}
+        sumOfGradePoints={sumOfGradePoints}
+        totalPeople={totalPeople}
+        creditStatistics={creditStatistics}
+      />
+      <Card hoverable bordered={false} style={{marginTop: 20}}>
+        <h2>成绩全览</h2>
+        <Table
+          pagination={false}
+          loading={Loading}
+          dataSource={statisticsDataSource}
+          columns={fullViewColumns}
+        />
       </Card>
-      <h2>成绩全览</h2>
-      <Table
-        pagination={false}
-        loading={props.Loading}
-        dataSource={props.statisticsDataSource}
-        columns={fullViewColumns}
-      />
-      <h2>选修</h2>
-      <Table
-        pagination={false}
-        loading={props.Loading}
-        dataSource={props.electiveDataSource}
-        columns={electiveColumns}
-      />
-      <h2>不知道是啥的</h2>
-      <Table
-        pagination={false}
-        loading={props.Loading}
-        dataSource={props.unKnowDataSource}
-        columns={unKnowColumns}
-      />
-    </div>
+      <Card hoverable bordered={false} style={{marginTop: 20}}>
+        <h2>选修</h2>
+        <Table
+          pagination={false}
+          loading={Loading}
+          dataSource={electiveDataSource}
+          columns={electiveColumns}
+        />
+      </Card>
+      <Card hoverable bordered={false} style={{marginTop: 20}}>
+        <h2>不知道是啥的</h2>
+        <Table
+          pagination={false}
+          loading={Loading}
+          dataSource={unKnowDataSource}
+          columns={unKnowColumns}
+        />
+      </Card>
+    </>
   );
 }
 

@@ -6,7 +6,7 @@ export default () => (
   <PageHeaderWrapper>
     <Card>
       <Alert
-        message="欢迎使用!"
+        message="欢迎使用!如有发现bug或有疑问,建议,或者意见,可联系我(QQ:917885215)"
         type="success"
         showIcon
         banner

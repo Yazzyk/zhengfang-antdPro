@@ -1,18 +1,34 @@
 @import '~antd/es/style/themes/default.less';
 
+:global {
+  .ant-pro-page-header-wrap-children-content {
+    margin-top: 0 !important;
+  }
+
+  .antd-pro-pages-grade-style-tabsCard {
+    margin-top: 0 !important;
+  }
+}
+
 .main {
   :global {
     .ant-descriptions-row > td {
       padding-bottom: 8px;
     }
+
     .ant-page-header-heading-extra {
       flex-direction: column;
     }
   }
 }
 
+.tabsCard {
+  margin: 20px 0;
+}
+
 .headerList {
   margin-bottom: 4px;
+
   :global {
     .ant-descriptions-row > td {
       padding-bottom: 8px;
@@ -39,6 +55,7 @@
       margin-left: 8px;
     }
   }
+
   .moreInfo {
     display: flex;
     justify-content: space-between;
@@ -50,6 +67,7 @@
   .stepDescription {
     left: 8px;
   }
+
   .pageHeader {
     :global {
       .ant-pro-page-header-wrap-row {
