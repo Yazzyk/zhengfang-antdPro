@@ -101,7 +101,7 @@ const BasicLayout = (props) => {
   return (
     <>
       <ProLayout
-        logo={logo}
+        logo="/cdn/logo.svg"
         menuHeaderRender={(logoDom, titleDom) => (
           <Link to="/">
             {logoDom}

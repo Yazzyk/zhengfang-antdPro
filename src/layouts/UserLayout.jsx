@@ -1,10 +1,8 @@
-import { DefaultFooter, getMenuData, getPageTitle } from '@ant-design/pro-layout';
-import { Helmet, HelmetProvider } from 'react-helmet-async';
-import { Link, useIntl, connect } from 'umi';
-import { GithubOutlined } from '@ant-design/icons';
+import {DefaultFooter, getMenuData, getPageTitle} from '@ant-design/pro-layout';
+import {Helmet, HelmetProvider} from 'react-helmet-async';
+import {Link, useIntl, connect} from 'umi';
+import {GithubOutlined} from '@ant-design/icons';
 import React from 'react';
-import SelectLang from '@/components/SelectLang';
-import logo from '../assets/logo.svg';
 import styles from './UserLayout.less';
 
 const UserLayout = (props) => {
@@ -13,7 +11,7 @@ const UserLayout = (props) => {
       routes: [],
     },
   } = props;
-  const { routes = [] } = route;
+  const {routes = []} = route;
   const {
     children,
     location = {
@@ -21,7 +19,7 @@ const UserLayout = (props) => {
     },
   } = props;
   const {} = useIntl();
-  const { breadcrumb } = getMenuData(routes);
+  const {breadcrumb} = getMenuData(routes);
   const title = getPageTitle({
     pathname: location.pathname,
     breadcrumb,
@@ -31,7 +29,7 @@ const UserLayout = (props) => {
     <HelmetProvider>
       <Helmet>
         <title>{title}</title>
-        <meta name="description" content={title} />
+        <meta name="description" content={title}/>
       </Helmet>
 
       <div className={styles.container}>
@@ -42,7 +40,7 @@ const UserLayout = (props) => {
           <div className={styles.top}>
             <div className={styles.header}>
               <Link to="/">
-                <img alt="logo" className={styles.logo} src={logo} />
+                <img alt="logo" className={styles.logo} src='/cdn/logo.svg' />
                 <span className={styles.title}>成绩查询系统</span>
               </Link>
             </div>
@@ -54,28 +52,28 @@ const UserLayout = (props) => {
           copyright="2020 Coded By PaleBlueYk"
           links={[
             {
-              key: 'Ant Design Pro',
-              title: 'Ant Design Pro',
-              href: 'https://pro.ant.design',
-              blankTarget: true,
-            },
-            {
-              key: 'github',
-              title: <GithubOutlined />,
-              href: 'https://github.com/paleblueyk/zhengfang-web-react',
-              blankTarget: true,
-            },
-            {
-              key: 'PaleBlueYk',
-              title: 'PaleBlueYk',
-              href: 'https://css0209.cn',
-              blankTarget: true,
-            },
-          ]}
-        />
-      </div>
+              key: ' Ant Design Pro',
+              title: ' Ant Design Pro',
+              href: ' https://pro.ant.design',
+                     blankTarget: true,
+                },
+                {
+                key: 'github',
+                title: <GithubOutlined/>,
+                href: 'https://github.com/paleblueyk/zhengfang-web-react',
+                blankTarget: true,
+                },
+                {
+                  key: 'PaleBlueYk',
+                  title: 'PaleBlueYk',
+                  href: 'https://css0209.cn',
+                  blankTarget: true,
+                },
+                ]}
+                />
+            </div>
     </HelmetProvider>
-  );
+);
 };
 
-export default connect(({ settings }) => ({ ...settings }))(UserLayout);
+export default connect(({settings}) => ({...settings}))(UserLayout);

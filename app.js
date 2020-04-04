@@ -13,6 +13,14 @@ app.use(
     pathRewrite: { '^/api': '' },
   }),
 );
+app.use(
+  '/cdn',
+  createProxyMiddleware({
+    target: 'https://cdn.jsdelivr.net',
+    changeOrigin: true,
+    pathRewrite: { '^/cdn': '/gh/paleblueyk/cdn/img/edu_css0209_cn' },
+  })
+);
 app.get('/*', (req, res) => {
   res.sendFile(path.join(__dirname, './dist', 'index.html'));
 });

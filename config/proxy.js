@@ -14,6 +14,13 @@ export default {
         '^/api': '',
       },
     },
+    '/cdn/': {
+      target: 'https://cdn.jsdelivr.net',
+      changeOrigin: true,
+      pathRewrite: {
+        '^/cdn': '/gh/paleblueyk/cdn/img/edu_css0209_cn',
+      },
+    },
   },
   test: {
     '/api/': {
@@ -21,6 +28,13 @@ export default {
       changeOrigin: true,
       pathRewrite: {
         '^/api': '',
+      },
+      '/cdn/': {
+        target: 'https://cdn.jsdelivr.net',
+        changeOrigin: true,
+        pathRewrite: {
+          '^/cdn': '/gh/paleblueyk/cdn',
+        },
       },
     },
   },
@@ -30,6 +44,13 @@ export default {
       changeOrigin: true,
       pathRewrite: {
         '^/api': '',
+      },
+      '/cdn/': {
+        target: 'https://cdn.jsdelivr.net',
+        changeOrigin: true,
+        pathRewrite: {
+          '^/cdn': '/gh/paleblueyk/cdn',
+        },
       },
     },
   },

@@ -60,7 +60,7 @@ export default () => (
         在实习后,又加上新技术Webflux,Redis,终于,大三开学的时候可以正常访问了!
       </Typography.Paragraph>
       <Typography.Paragraph>
-        而当你看到这个页面时,它的前端已经被我用企业级框架<code>umi+Ant Design Pro+dva</code>
+        而当你看到这个页面时,它的前端已经被我用企业级框架<code>Ant Design Pro</code>
         重新做了一次!
       </Typography.Paragraph>
       <Typography.Title level={2}>原理</Typography.Title>
