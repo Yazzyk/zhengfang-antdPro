@@ -9,7 +9,7 @@ function OverView(props) {
     creditStatistics);
   return (
     <Card title="概况" loading={props.Loading} style={{marginTop: 20}} hoverable>
-      <Descriptions column={{xxl: 5, xl: 4, lg: 3, md: 3, sm: 2, xs: 2}}>
+      <Descriptions column={{xxl: 3, xl: 3, lg: 3, md: 3, sm: 2, xs: 2}}>
         <DescriptionsItem>
           <Statistic
             title="平均学分绩点"
@@ -27,7 +27,7 @@ function OverView(props) {
           />
         </DescriptionsItem>
       </Descriptions>
-      <Descriptions column={{xxl: 5, xl: 4, lg: 3, md: 3, sm: 2, xs: 2}}>
+      <Descriptions column={{xxl: 4, xl: 4, lg: 4, md: 2, sm: 2, xs: 2}}>
         <DescriptionsItem>
           <Statistic title="所选学分" value={creditStatisticsArray[0]}/>
         </DescriptionsItem>
