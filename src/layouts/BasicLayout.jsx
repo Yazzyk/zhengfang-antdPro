@@ -47,7 +47,7 @@ const defaultFooterDom = (
       {
         key: 'github',
         title: <GithubOutlined />,
-        href: 'https://github.com/paleblueyk/zhengfang-web-react',
+        href: 'https://github.com/paleblueyk/zhengfang-antdPro',
         blankTarget: true,
       },
       {
