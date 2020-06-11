@@ -4,5 +4,5 @@ WORKDIR /app/html
 COPY ./ /app/html
 RUN npm config set registry http://registry.npm.taobao.org/
 RUN npm install pm2 -g
-CMD ["npm", "install"]
+RUN npm install
 CMD ["pm2-docker", "app.js"]
