@@ -44,7 +44,13 @@ class Login extends Component {
     dispatch({
       type: 'login/login',
       payload: { ...values, type },
-    });
+    }).then((data) => {
+      if(data.result === 'fail') {
+        dispatch({
+          type: 'global/changeCaptChaSrc',
+        });
+      }
+    })
   };
 
   LoginMessage = (content) => (

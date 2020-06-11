@@ -23,8 +23,9 @@ const Model = {
       yield put({
         type: 'changeLoginStatus',
         payload: response,
-      }); // Login successfully
-
+      }); 
+      
+      // Login successfully
       if (response.result === 'success') {
         const urlParams = new URL(window.location.href);
         const params = getPageQuery();
@@ -47,6 +48,8 @@ const Model = {
 
         history.replace(redirect || '/');
       }
+      // eslint-disable-next-line consistent-return
+      return response;
     },
 
     logout() {

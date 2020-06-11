@@ -15,7 +15,7 @@ const UserModel = {
       });
     },
 
-    *fetchCurrent(_, { call, put }) {
+    *fetchCurrent({ callback }, { call, put }) {
       const response = yield call(queryCurrent, storage.find('token'));
       if (response.result === 'success') {
         response.item.avatar = 'https://img.css0209.cn/img/avatar/default.jpg'
@@ -23,6 +23,9 @@ const UserModel = {
           type: 'saveCurrentUser',
           payload: response,
         });
+      }
+      if (callback && typeof callback === 'function') {
+        callback();
       }
     },
   },

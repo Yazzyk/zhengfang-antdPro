@@ -16,6 +16,15 @@ export default () => (
         }}
       />
       <Typography>
+        <Typography.Title level={2}>通过反向代理访问学校官方的教务系统</Typography.Title>
+        <Typography.Paragraph>
+          受<a href="https://blackyau.cc/" rel="noopener noreferrer" target="_blank">某位同学</a>启发,
+          使用Nginx的方向代理，可以从我的域名访问到学校的正方系统：<a href="http://zf.css0209.cn"  rel="noopener noreferrer" target="_blank">官方正方系统地址</a>,<br />
+          由于神秘的力量，不能做SSL，否则会有bug。<br />
+          反向代理技术请参考：<a href="https://baike.baidu.com/item/%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86"  rel="noopener noreferrer" target="_blank">反向代理</a>
+        </Typography.Paragraph>
+      </Typography>
+      <Typography>
         <Typography.Title level={2}>为什么学校的正方系统只能用IE访问?</Typography.Title>
         <Typography.Paragraph>
           原因是学校的正方系统是直接挂在服务器的95端口下的,服务器似乎是IIS(不懂请百度),

@@ -1,7 +1,8 @@
-import React, {Component} from 'react';
-import {Card, Form, Select, Table} from 'antd';
-import {connect} from '@/.umi/plugin-dva/exports';
-import {ColData} from '../../data';
+import React, { Component } from 'react';
+import { Card, Form, Select } from 'antd';
+import ProTable from '@ant-design/pro-table';
+import { connect } from '@/.umi/plugin-dva/exports';
+import { ColData } from '../../data';
 import styles from './styles.less';
 
 const yearList = [];
@@ -10,16 +11,17 @@ for (let i = 2001; i <= thisYear; i += 1) {
   yearList.push(`${i}-${i + 1}`);
 }
 
-@connect(({grade, loading}) => ({
+@connect(({ grade, loading }) => ({
   grade,
   loading: loading.models.grade,
 }))
 class Query extends Component {
   state = {
-    year:         ``,
-    semester:     '',
+    year: ``,
+    semester: '',
     courseNature: '',
-    btn:          'Button2',
+    btn: 'Button2',
+    selectedRows: []
   };
 
   componentDidMount() {
@@ -32,17 +34,25 @@ class Query extends Component {
   };
 
   handleSubmit = (e) => {
-    const {dispatch} = this.props;
+    const { dispatch } = this.props;
     dispatch({
-      type:    'grade/fetchGrade',
-      payload: {...e},
+      type: 'grade/fetchGrade',
+      payload: { ...e },
     });
   };
 
+  getAverage = (selectedRows, selectedRowKeys) => {
+    if (selectedRowKeys.length === 0) {
+      return 0;
+    }
+    const count = selectedRows.reduce((pre, item) => (pre - '0') + (item.chengji - '0'), 0);
+    return (count / selectedRowKeys.length).toFixed(2);
+  }
+
   render() {
-    const {grade, loading} = this.props;
-    const {gradeSource} = grade;
-    const {GradeCol} = ColData;
+    const { grade, loading } = this.props;
+    const { gradeSource } = grade;
+    const { GradeCol } = ColData;
     const yearOptions = yearList.map((year) => (
       <Select.Option value={year} key={year}>
         {year}
@@ -50,10 +60,10 @@ class Query extends Component {
     ));
     return (
       <>
-        <Card style={{marginTop: 20}} bordered={false} hoverable>
+        <Card style={{ marginTop: 20 }} bordered={false} hoverable>
           <Form
-            labelCol={{span: 8}}
-            wrapperCol={{span: 16}}
+            labelCol={{ span: 8 }}
+            wrapperCol={{ span: 16 }}
             layout="horizontal"
             onFinish={this.handleSubmit}
             onValuesChange={this.handleValueUpdate}
@@ -99,7 +109,6 @@ class Query extends Component {
               </Form.Item>
               <Form.Item label="查询对象" name="btn">
                 <Select>
-                  <Select.Option value=""> </Select.Option>
                   <Select.Option value="Button2">未通过成绩</Select.Option>
                   <Select.Option value="btn_xq">学期成绩</Select.Option>
                   <Select.Option value="btn_xn">学年成绩</Select.Option>
@@ -110,13 +119,34 @@ class Query extends Component {
             </div>
           </Form>
         </Card>
-        <Card style={{marginTop:20}} bordered={false} hoverable>
-          <h3>成绩展示</h3>
-          <Table
+        <Card style={{ marginTop: 20 }} bordered={false} hoverable>
+          <ProTable
             loading={loading}
             dataSource={gradeSource}
             columns={GradeCol}
-            style={{marginTop: 50}}
+            headerTitle='成绩表'
+            rowKey='key'
+            rowSelection={{}}
+            search={false}
+            tableAlertRender={(selectedRowKeys, selectedRows) => (
+              <div>
+                已选择{' '}
+                <a
+                  style={{
+                    fontWeight: 600,
+                  }}
+                >
+                  {selectedRowKeys.length}
+                </a>{' '}
+            项&nbsp;&nbsp;
+                <span>
+                  分数总计 {selectedRows.reduce((pre, item) => (pre - '0') + (item.chengji - '0'), 0)}分
+                  &nbsp;&nbsp;
+                  平均分  {this.getAverage(selectedRows, selectedRowKeys)}分
+                </span>
+              </div>
+            )
+            }
           />
         </Card>
       </>

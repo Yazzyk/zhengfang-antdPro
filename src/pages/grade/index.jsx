@@ -42,6 +42,7 @@ class Grade extends Component {
         <Statistic
           title="已获得选修学分"
           value={statistics === undefined ? 0 : statistics.data6[0].huodexuefen}
+          suffix="/6"
         />
       </div>
     );

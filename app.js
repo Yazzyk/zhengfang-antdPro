@@ -6,7 +6,7 @@ const { createProxyMiddleware } = require('http-proxy-middleware');
 const app = express();
 app.use(express.static(path.join(__dirname, './dist')));
 app.use(
-  '/api',
+  '/api/**',
   createProxyMiddleware({
     target: 'https://backstage.edu.css0209.cn/',
     changeOrigin: true,
