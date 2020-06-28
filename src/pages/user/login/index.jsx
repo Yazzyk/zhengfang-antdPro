@@ -1,4 +1,5 @@
-import { Alert, Checkbox, Input, Tooltip } from 'antd';
+import { Alert, Input, Tooltip } from 'antd';
+import { QqOutlined } from '@ant-design/icons';
 import React, { Component } from 'react';
 import { connect } from 'umi';
 import LoginFrom from './components/Login';
@@ -122,9 +123,7 @@ class Login extends Component {
             </Input.Group>
           </Tab>
           <div>
-            <Checkbox checked={autoLogin} onChange={this.setAutoLogin}>
-              自动登录
-            </Checkbox>
+            如果遇到无法访问之类的问题，请联系站长: <a href="tencent://Message/?Uin=917885215&amp;websiteName=q-zone.qq.com&amp;Menu=yes" ><QqOutlined spin /></a> 
           </div>
           <Submit loading={submitting}>登录</Submit>
         </LoginFrom>
