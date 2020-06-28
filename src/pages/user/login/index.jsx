@@ -123,7 +123,7 @@ class Login extends Component {
             </Input.Group>
           </Tab>
           <div>
-            如果遇到无法访问之类的问题，请联系站长: <a href="tencent://Message/?Uin=917885215&amp;websiteName=q-zone.qq.com&amp;Menu=yes" ><QqOutlined spin /></a> 
+            <p>如果遇到无法访问之类的问题，请联系站长: <a href="tencent://Message/?Uin=917885215&amp;websiteName=q-zone.qq.com&amp;Menu=yes" ><QqOutlined spin /></a></p>
           </div>
           <Submit loading={submitting}>登录</Submit>
         </LoginFrom>
