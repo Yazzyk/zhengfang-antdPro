@@ -128,25 +128,6 @@ class Query extends Component {
             rowKey='key'
             rowSelection={{}}
             search={false}
-            tableAlertRender={(selectedRowKeys, selectedRows) => (
-              <div>
-                已选择{' '}
-                <a
-                  style={{
-                    fontWeight: 600,
-                  }}
-                >
-                  {selectedRowKeys.length}
-                </a>{' '}
-            项&nbsp;&nbsp;
-                <span>
-                  分数总计 {selectedRows.reduce((pre, item) => (pre - '0') + (item.chengji - '0'), 0)}分
-                  &nbsp;&nbsp;
-                  平均分  {this.getAverage(selectedRows, selectedRowKeys)}分
-                </span>
-              </div>
-            )
-            }
           />
         </Card>
       </>

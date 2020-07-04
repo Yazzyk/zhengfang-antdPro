@@ -7,7 +7,7 @@ const Model = {
   state: {
     failedGrade: undefined,
     statistics: undefined,
-    gradeSource: undefined,
+    gradeSource: [],
   },
 
   effects: {
