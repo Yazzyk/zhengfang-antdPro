@@ -15,7 +15,6 @@ const { Tab, UserName, Password, Submit, CaptCha } = LoginFrom;
 class Login extends Component {
   state = {
     type: 'account',
-    autoLogin: true,
   };
 
   constructor(props) {
@@ -69,7 +68,7 @@ class Login extends Component {
     const { global, userLogin, submitting } = this.props;
     const { status, type: loginType, message } = userLogin;
     const { captChaSrc } = global;
-    const { type, autoLogin } = this.state;
+    const { type } = this.state;
 
     return (
       <div className={styles.main}>
@@ -124,6 +123,7 @@ class Login extends Component {
           </Tab>
           <div>
             <p>如果遇到无法访问之类的问题，请联系站长:<a href="tencent://Message/?Uin=917885215&amp;websiteName=q-zone.qq.com&amp;Menu=yes" ><QqOutlined spin /></a></p>
+            <p>备用站点：<a href="http://zf.css0209.cn" target="_blank" rel="nofollow">正方镜像站点</a></p>
           </div>
           <Submit loading={submitting}>登录</Submit>
         </LoginFrom>

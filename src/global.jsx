@@ -1,6 +1,7 @@
 import { Button, message, notification } from 'antd';
 import React from 'react';
 import defaultSettings from '../config/defaultSettings';
+import styles from './global.less';
 
 const { pwa } = defaultSettings; // if pwa is true
 

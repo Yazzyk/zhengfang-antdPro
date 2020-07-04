@@ -1,10 +1,11 @@
 import React from 'react';
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
 import { Card, Typography, Alert } from 'antd';
+import styles from './Welcome.less';
 
 export default () => (
   <PageHeaderWrapper>
-    <Card>
+    <Card className={styles.welcome}>
       <Alert
         message="欢迎使用!如有发现bug或有疑问,建议,或者意见,可联系我(QQ:917885215)"
         type="success"
