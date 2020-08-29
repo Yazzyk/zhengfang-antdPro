@@ -17,7 +17,7 @@ export default () => (
         }}
       />
       <Typography>
-        <Typography.Title level={2}>更新日志</Typography.Title>
+        <Typography.Title level={2}>维护与更新</Typography.Title>
         <Typography.Paragraph>
           由于本人已经从Java转去做Golang的开发,后面的维护可能会越来越少
         </Typography.Paragraph>
