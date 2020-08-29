@@ -4,6 +4,7 @@
  */
 import { extend } from 'umi-request';
 import { notification } from 'antd';
+import { storage } from './storage';
 
 const codeMessage = {
   200: '服务器成功返回请求的数据。',
@@ -53,5 +54,19 @@ const request = extend({
   errorHandler,
   // 默认错误处理
   credentials: 'include', // 默认请求是否带上cookie
+});
+
+request.interceptors.request.use(async (url, options) => {  // 此处为拦截器，每次发送请求之前判断能否取到token
+  if (storage.find('token')) {
+    const headers = {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+      'token': storage.find('token'),
+    };
+    return {
+      url,
+      options: { ...options, headers },
+    };
+  }
 });
 export default request;

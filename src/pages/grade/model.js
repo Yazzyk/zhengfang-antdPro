@@ -12,14 +12,14 @@ const Model = {
 
   effects: {
     *failGrade(_, { call, put }) {
-      const response = yield call(queryFailGrade, storage.find('token'));
+      const response = yield call(queryFailGrade);
       yield put({
         type: 'saveFailGrade',
         payload: response.item.failedGrade,
       });
     },
     *fetchGrade({ payload }, { call, put }) {
-      const data = { ...payload, token: storage.find('token') };
+      const data = { ...payload };
       const response = yield call(queryGrade, data);
       if (payload.btn === 'Button1') {
         response.item.gradeStatistics.data2.forEach((element, index) => {

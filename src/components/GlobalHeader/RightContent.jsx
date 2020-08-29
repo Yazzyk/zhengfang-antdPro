@@ -28,11 +28,11 @@ const GlobalHeaderRight = (props) => {
         options={[
           {
             label: <a href="https://css0209.cn">作者</a>,
-            value: '作者',
+            value: '作者PaleBlueYk',
           },
           {
-            label: <a href="next.ant.design">Ant Design</a>,
-            value: 'Ant Design',
+            label: <a href="https://pro.ant.design/index-cn">Ant Design Pro</a>,
+            value: 'Ant Design Pro',
           },
         ]} // onSearch={value => {
         //   //console.log('input', value);

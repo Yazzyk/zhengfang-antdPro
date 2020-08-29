@@ -55,19 +55,25 @@ export default defineConfig({
           routes: [
             {
               path: '/',
-              redirect: '/welcome',
-            },
-            {
-              path: '/welcome',
-              name: '欢迎页',
-              icon: 'smile',
-              component: './Welcome',
+              redirect: '/grade',
             },
             {
               name: '成绩',
               icon: 'table',
               path: '/grade',
               component: './grade',
+            },
+            {
+              path: '/about',
+              name: '关于本站',
+              icon: 'smile',
+              component: './Welcome',
+            },
+            {
+              path: '/log',
+              name: '更新日志',
+              icon: 'FileExclamationOutlined',
+              component: './updateLog'
             },
             {
               component: './404',

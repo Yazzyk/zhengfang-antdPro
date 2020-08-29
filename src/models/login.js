@@ -17,7 +17,6 @@ const Model = {
         username: payload.username,
         password: payload.password,
         captcha: payload.captcha,
-        token: localStorage.getItem('token'),
       };
       const response = yield call(AccountLogin, data);
       yield put({
@@ -30,7 +29,6 @@ const Model = {
         const urlParams = new URL(window.location.href);
         const params = getPageQuery();
         let { redirect } = params;
-
         if (redirect) {
           const redirectUrlParams = new URL(redirect);
 

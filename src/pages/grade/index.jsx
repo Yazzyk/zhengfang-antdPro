@@ -10,9 +10,10 @@ import Query from '@/pages/grade/components/Query';
 import Statistics from './components/Statistics';
 import styles from './style.less';
 
-@connect(({grade, user, loading}) => ({
+@connect(({grade, global, user, loading}) => ({
   grade,
   user,
+  global,
   loading: loading.models.grade,
 }))
 class Grade extends Component {
@@ -32,6 +33,9 @@ class Grade extends Component {
         btn: 'Button1',
       },
     });
+    dispatch({
+      type: 'global/getDictionaries',
+    })
   }
 
   extra = (failedGrade, statistics) => {
@@ -60,7 +64,7 @@ class Grade extends Component {
                       column={isMobile ? 1 : 2}>
           <Descriptions.Item label="姓名">{currentUser.name}</Descriptions.Item>
           <Descriptions.Item
-            label="学号">{currentUser.student_id}</Descriptions.Item>
+            label="学号">{currentUser.sid}</Descriptions.Item>
           <Descriptions.Item
             label="院系">{currentUser.faculty}</Descriptions.Item>
           <Descriptions.Item

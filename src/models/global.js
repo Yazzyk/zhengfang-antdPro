@@ -1,5 +1,5 @@
 import { queryNotices } from '@/services/user';
-import { getToken } from '@/services/global';
+import { getToken, getDictionaries } from '@/services/global';
 import { storage } from '../utils/storage';
 
 const GlobalModel = {
@@ -7,6 +7,7 @@ const GlobalModel = {
   state: {
     collapsed: false,
     notices: [],
+    dictionaries: {},
   },
   effects: {
     *fetchNotices(_, { call, put, select }) {
@@ -36,6 +37,16 @@ const GlobalModel = {
       yield put({
         type: 'changeCaptChaSrc',
       });
+    },
+
+    *getDictionaries(_, {call, put}) {
+      // 从后端获取字典
+      const dictionaries = yield call(getDictionaries)
+      console.log(dictionaries)
+      yield put({
+        type: 'saveDictionaries',
+        payload: dictionaries,
+      })
     },
 
     *clearNotices({ payload }, { put, select }) {
@@ -103,8 +114,11 @@ const GlobalModel = {
       };
     },
     saveToken(state, { payload }) {
-      storage.save('token', payload.item.token);
-      return { ...state, token: payload.item.token };
+      storage.save('token', payload.item);
+      return { ...state, token: payload.item };
+    },
+    saveDictionaries(state, {payload}) {
+      return { ...state, dictionaries: payload.item }
     },
     saveClearedNotices(
       state = {

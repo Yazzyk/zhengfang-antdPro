@@ -16,7 +16,7 @@ const UserModel = {
     },
 
     *fetchCurrent({ callback }, { call, put }) {
-      const response = yield call(queryCurrent, storage.find('token'));
+      const response = yield call(queryCurrent);
       if (response.result === 'success') {
         response.item.avatar = 'https://img.css0209.cn/img/avatar/default.jpg'
         yield put({

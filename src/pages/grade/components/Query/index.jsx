@@ -11,8 +11,9 @@ for (let i = 2001; i <= thisYear; i += 1) {
   yearList.push(`${i}-${i + 1}`);
 }
 
-@connect(({ grade, loading }) => ({
+@connect(({ grade, global, loading }) => ({
   grade,
+  global,
   loading: loading.models.grade,
 }))
 class Query extends Component {
@@ -50,7 +51,7 @@ class Query extends Component {
   }
 
   render() {
-    const { grade, loading } = this.props;
+    const { grade, loading, global: {dictionaries} } = this.props;
     const { gradeSource } = grade;
     const { GradeCol } = ColData;
     const yearOptions = yearList.map((year) => (
@@ -109,11 +110,11 @@ class Query extends Component {
               </Form.Item>
               <Form.Item label="查询对象" name="btn">
                 <Select>
-                  <Select.Option value="Button2">未通过成绩</Select.Option>
-                  <Select.Option value="btn_xq">学期成绩</Select.Option>
-                  <Select.Option value="btn_xn">学年成绩</Select.Option>
-                  <Select.Option value="btn_zcj">历年成绩</Select.Option>
-                  <Select.Option value="btn_zg">课程最高成绩</Select.Option>
+                  <Select.Option value="Button2">{dictionaries.BtnType.Button2}</Select.Option>
+                  <Select.Option value="btn_xq">{dictionaries.BtnType.btn_xq}</Select.Option>
+                  <Select.Option value="btn_xn">{dictionaries.BtnType.btn_xn}</Select.Option>
+                  <Select.Option value="btn_zcj">{dictionaries.BtnType.btn_zcj}</Select.Option>
+                  <Select.Option value="btn_zg">{dictionaries.BtnType.btn_zg}</Select.Option>
                 </Select>
               </Form.Item>
             </div>

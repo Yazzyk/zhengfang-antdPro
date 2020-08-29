@@ -8,7 +8,7 @@
 export default {
   dev: {
     '/api/': {
-      target: 'https://backstage.edu.css0209.cn',
+      target: 'http://localhost:5000',
       changeOrigin: true,
       pathRewrite: {
         '^/api': '',
