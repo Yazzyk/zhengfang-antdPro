@@ -2,8 +2,13 @@ import React from 'react';
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
 import { Card, Typography, Alert } from 'antd';
 import styles from './index.less';
-import { Valine, ValinePanel, ValineCount, ValinePageview } from 'react-valine';
+import { Valine, ValinePanel, ValineCount } from 'react-valine';
 
+@connect(({grade, global, user, loading}) => ({
+  user,
+  global,
+  loading: loading.models.grade,
+}))
 export default () => (
   <PageHeaderWrapper>
     <Card className={styles.log}>
@@ -36,7 +41,7 @@ export default () => (
     </Card>
     <Card className={styles.valine}>
       <Valine
-        appId="UzW1Ujw91OD5BqIiSpuc0WF8-gzGzoHsz-gzGzoHsz"
+        appId="UzW1Ujw91OD5BqIiSpuc0WF8-gzGzoHsz"
         appKey="ziKCb6g6YD269VFKktW1wAg7"
         pagesize={10}
         customTxt={{
@@ -44,11 +49,8 @@ export default () => (
           ctrl: { more: '再给我来一打' },
         }}
       >
-        <div>
-          评论数：
-          <ValineCount />
-        </div>
-        <ValinePanel/>
+        <div>评论数：<ValineCount /></div>
+        <ValinePanel uniqStr={this.props.user.currentUser.username+'_'+this.props.user.currentUser.name} />
       </Valine>
     </Card>
   </PageHeaderWrapper>
