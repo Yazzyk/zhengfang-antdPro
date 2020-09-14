@@ -46,7 +46,12 @@ class Query extends Component {
     if (selectedRowKeys.length === 0) {
       return 0;
     }
-    const count = selectedRows.reduce((pre, item) => (pre - '0') + (item.chengji - '0'), 0);
+    console.log(selectedRows)
+    const count = selectedRows.reduce((sum, item) => {
+      console.log('sum', sum - '0')
+      console.log('cj', item.chengji - '0')
+      return (sum - '0') + (item.chengji - '0')
+  }, 0);
     return (count / selectedRowKeys.length).toFixed(2);
   }
 
