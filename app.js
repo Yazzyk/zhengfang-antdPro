@@ -8,7 +8,7 @@ app.use(express.static(path.join(__dirname, './dist')));
 app.use(
   '/api/**',
   createProxyMiddleware({
-    target: '127.0.0.1:5000',
+    target: '172.18.0.1:5000',
     changeOrigin: true,
     pathRewrite: { '^/api': '' },
   }),
