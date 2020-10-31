@@ -8,7 +8,7 @@ app.use(express.static(path.join(__dirname, './dist')));
 app.use(
   '/api/**',
   createProxyMiddleware({
-    target: 'https://backstage.edu.css0209.cn/',
+    target: '127.0.0.1:5000',
     changeOrigin: true,
     pathRewrite: { '^/api': '' },
   }),
