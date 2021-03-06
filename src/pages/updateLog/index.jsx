@@ -16,7 +16,7 @@ class UpdateLog extends Component {
       <PageHeaderWrapper>
         <Card className={styles.log}>
           <Alert
-            message="当前版本: 1.0, 本站最后更新时间: 2020.08.30"
+            message="当前版本: 1.0.1, 本站最后更新时间: 2021.03.07"
             type="success"
             showIcon
             banner
@@ -39,12 +39,22 @@ class UpdateLog extends Component {
                 <li>
                   后端添加了字典接口，方便获取后端的枚举类(这段代码我还没看懂)，前端成绩查询成绩页面的未通过成绩等可以直接用后端枚举
                 </li>
-                <li>添加评论功能, 请理性发言!!</li>
+              </ol>
+            </Typography.Paragraph>
+          </Typography>
+          <Typography>
+            <Typography.Title level={2}>更新日志 2021.03.07</Typography.Title>
+            <Typography.Paragraph>
+              <ol>
+                <li>
+                  修复 教务系统更新后需要重置密码，导致本站登录后无反应
+                </li>
+                <li>修复 由于教务系统去掉了选修分数的表格导致的页面无限loading，因此去掉了选修相关的数据</li>
               </ol>
             </Typography.Paragraph>
           </Typography>
         </Card>
-        <Card className={styles.valine}>
+        {/* <Card className={styles.valine}>
           <Valine
             appId="UzW1Ujw91OD5BqIiSpuc0WF8-gzGzoHsz"
             appKey="ziKCb6g6YD269VFKktW1wAg7"
@@ -58,7 +68,7 @@ class UpdateLog extends Component {
               uniqStr={user.currentUser.sid + '_' + user.currentUser.name}
             />
           </Valine>
-        </Card>
+        </Card> */}
       </PageHeaderWrapper>
     );
   }

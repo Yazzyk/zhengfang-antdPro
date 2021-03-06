@@ -26,10 +26,10 @@ const Model = {
           // eslint-disable-next-line no-param-reassign
           element.key = index;
         });
-        response.item.gradeStatistics.data6.forEach((element, index) => {
-          // eslint-disable-next-line no-param-reassign
-          element.key = index;
-        });
+        // response.item.gradeStatistics.data6.forEach((element, index) => {
+        //   // eslint-disable-next-line no-param-reassign
+        //   element.key = index;
+        // });
         response.item.gradeStatistics.data7.forEach((element, index) => {
           // eslint-disable-next-line no-param-reassign
           element.key = index;

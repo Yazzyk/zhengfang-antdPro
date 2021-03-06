@@ -20,23 +20,23 @@ function Statistics(props) {
     creditStatistics, Loading, electiveDataSource, totalPeople, unKnowDataSource,
     statisticsDataSource,
   } = props;
-  const electiveCredits = electiveDataSource[0].huodexuefen;
+  // const electiveCredits = electiveDataSource[0].huodexuefen;
   const creditsEarned = getCreditsEarned(statisticsDataSource);
-  const electiveData = [
-    {
-      name:  `已获得学分`,
-      value: electiveCredits - '0',
-    },
-    {
-      name:  `还需学分`,
-      value: 6 - (electiveCredits - '0'),
-    },
-  ];
+  // const electiveData = [
+  //   {
+  //     name:  `已获得学分`,
+  //     value: electiveCredits - '0',
+  //   },
+  //   {
+  //     name:  `还需学分`,
+  //     value: 6 - (electiveCredits - '0'),
+  //   },
+  // ];
   const {fullViewColumns, electiveColumns, unKnowColumns} = ColData;
   return (
     <>
       <Row gutter={{xs: 8, sm: 16, md: 24}} justify='space-around'>
-        <Col flex='1 0 50%'>
+        {/* <Col flex='1 0 50%'>
           <Card
             loading={Loading}
             bordered={false}
@@ -60,7 +60,7 @@ function Statistics(props) {
               </Geom>
             </Chart>
           </Card>
-        </Col>
+        </Col> */}
         <Col flex='1 0 50%'>
           <Card
             loading={Loading}
@@ -103,7 +103,7 @@ function Statistics(props) {
           columns={fullViewColumns}
         />
       </Card>
-      <Card hoverable bordered={false} style={{marginTop: 20}}>
+      {/* <Card hoverable bordered={false} style={{marginTop: 20}}>
         <h2>选修</h2>
         <Table
           pagination={false}
@@ -111,7 +111,7 @@ function Statistics(props) {
           dataSource={electiveDataSource}
           columns={electiveColumns}
         />
-      </Card>
+      </Card> */}
       <Card hoverable bordered={false} style={{marginTop: 20}}>
         <h2>不知道是啥的</h2>
         <Table
